@@ -1,0 +1,19 @@
+location: gitman_sources
+sources:
+  - name: xmath.h
+    type: git
+    repo: https://github.com/AdvancedSpace/xmath.h
+    sparse_paths:
+      -
+    rev: master
+    scripts:
+      -
+  - name: ode
+    type: git
+    repo: https://bitbucket.org/odedevs/ode.git
+    rev: master
+sources_locked:
+  - 
+default_group: ''
+groups:
+  -
