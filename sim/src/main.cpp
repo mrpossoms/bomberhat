@@ -22,7 +22,10 @@
 
 #include <ode/ode.h>
 #include <drawstuff/drawstuff.h>
-#include "texturepath.h"
+
+#ifndef DRAWSTUFF_TEXTURE_PATH
+#define DRAWSTUFF_TEXTURE_PATH "../../gitman_sources/ode/drawstuff/textures"
+#endif
 
 #ifdef dDOUBLE
 #define dsDrawSphere dsDrawSphereD
