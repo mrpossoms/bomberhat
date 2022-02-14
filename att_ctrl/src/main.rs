@@ -1,6 +1,7 @@
 extern crate nalgebra as na;
 extern crate nyx_space as nyx;
 
+mod attctrl;
 mod mrp;
 mod vehdynamics;
 mod vehstate;
