@@ -1,0 +1,10 @@
+[package]
+name = "att_ctrl"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+nyx-space = {git ="https://gitlab.com/nyx-space/nyx.git", rev = "a8b28f29a37cf3263fd78c91aa09854a72b7b1d9"}
+nalgebra = "0.29" # Matching the Nyx version
