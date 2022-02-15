@@ -1,8 +1,14 @@
+#pragma once
+
 #include <ode/ode.h>
+#include <string>
+#include <unordered_map>
 
 
 struct simulation
 {
+	dWorldID world;
+
 	std::unordered_map<std::string, dSpaceID> space;
 	std::unordered_map<std::string, dGeomID> geometry;
 	std::unordered_map<std::string, dBodyID> body;
@@ -10,9 +16,12 @@ struct simulation
 
 	dJointGroupID contact_group;
 
-	virtual void setup() = 0;
+	virtual void setup();
 
-	void sim_loop(int pause);
+	void step(dReal step_size=0.005);
+
+protected:
+	void init();
 
 private:
 	dReal t;
