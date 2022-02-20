@@ -12,6 +12,7 @@ set(SOURCES ${SOURCES} ${CMAKE_CURRENT_SOURCE_DIR}/src/simulation.cpp)
 add_executable(sim ${SOURCES})
 
 target_include_directories(sim PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/inc)
+target_include_directories(sim PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../gitman_sources/xmath.h/inc)
 
 # link to the appropriate packages and libraries
 find_package(OpenGL REQUIRED)

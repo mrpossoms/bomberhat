@@ -34,17 +34,6 @@ static void near_callback (void* ctx, dGeomID o1, dGeomID o2)
   }
 }
 
-void simulation::setup()
-{
-    world = dWorldCreate();
-    space["root"] = dHashSpaceCreate (0);
-
-    dWorldSetGravity (world,0,0,-9.8);
-    dWorldSetDamping(world, 1e-4, 1e-5);
-
-    contact_group = dJointGroupCreate(0);
-}
-
 
 void simulation::step(dReal step_size)
 {
@@ -60,6 +49,8 @@ void simulation::step(dReal step_size)
             dSpaceCollide(space_id, (void*)this, near_callback);
 
         }
+
+        user_step(step_size);
         dWorldQuickStep(world, step_size);
 
         // remove all contact joints
@@ -68,8 +59,19 @@ void simulation::step(dReal step_size)
 }
 
 
-void simulation::init()
+simulation::simulation()
 {
     // create world
     dInitODE();
+
+    world = dWorldCreate();
+    space["root"] = dHashSpaceCreate (0);
+
+    dWorldSetGravity (world,0,0,-9.8);
+    dWorldSetDamping(world, 1e-4, 1e-5);
+
+    contact_group = dJointGroupCreate(0);
+
+    geometry["ground"] = dCreatePlane (space["root"], 0, 0, 1, 0);
+
 }
