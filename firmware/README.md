@@ -10,10 +10,24 @@ From a 10000' view, the controller firmware approximately has the following stag
 4. return to 1.
 
 ### Collection
-Some nuance should be acknowledged in regards to the collection of measurements. Not all sensors produce measurements at the same frequency. In addition to that, some may be triggered by interrupts, and thus posses a degree of asynchronicity. There should be structures in place to accommodate the streaming incomplete nature of these measurements.
+Some nuance should be acknowledged in regards to the collection of measurements. Not all sensors produce measurements at the same frequency. In addition to that, some may be triggered by interrupts, and thus posses a degree of asynchronicity. There should be structures in place to accommodate the streaming incomplete nature of these measurements. This should be achievable using a Kalman filter 
 
 ### Evaluation
 Because of the possible fragmented nature of the measurements, it's likely that we should want an intermediate step which filters our complete state and estimates the likely values of the state before running our evaluation. The output of this estimator should be the input of our controller. This should probably run a a fixed time step
 
 ### Actuation
 Desired output controls are sent to the appropriate systems which control actuators which apply controls in the physical world.
+
+### Block Diagram
+
+These three stages can be broken into three logically distinct classes of components sensors for collection, an estimator for evaluating state, and an actuator for taking the state and determining the next action to be taken to achieve a predetermined goal state. One or more sensors should contribute to the state estimation. However, a single state should be produced, and forwarded to the actuator. In turn, the actuator should produce a single control vector used as feedback for the estimator.
+
+```
+                           ┌──────────────────────┐
+                           │                      │
+┌──────┐              ┌────▼────┐            ┌────┴───┐
+│Sensor├─────n..1────►│Estimator├────1..1───►│Actuator│
+└──────┘              └─────────┘            └────────┘
+````
+
+Each component should have access to the same context object. The context should house the estimated state, handles for any relevant busses, and any other values that may be useful across components. 
