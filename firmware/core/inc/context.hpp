@@ -6,7 +6,7 @@ namespace bh
 
 struct context
 {
-	std::vector<bh::Bus>& busses;
+	std::vector<bh::interface::Bus>& busses;
 };
 
 } // end bh
