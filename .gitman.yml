@@ -2,7 +2,7 @@ location: gitman_sources
 sources:
   - name: xmath.h
     type: git
-    repo: https://github.com/AdvancedSpace/xmath.h
+    repo: https://github.com/mrpossoms/xmath.h
     sparse_paths:
       -
     rev: master

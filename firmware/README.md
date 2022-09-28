@@ -30,4 +30,22 @@ These three stages can be broken into three logically distinct classes of compon
 └──────┘              └─────────┘            └────────┘
 ````
 
-Each component should have access to the same context object. The context should house the estimated state, handles for any relevant busses, and any other values that may be useful across components. 
+Each component should have access to the same context object. The context should house the estimated state, handles for any relevant busses, and any other values that may be useful across components.
+
+Sensors can either be polled, or event (interrupt) driven. The execution sequence for each may look like the following, respectively.
+
+#### Polling
+
+1. Request data from sensor
+2. Receive response
+3. Ingest into estimator
+4. Goto 1
+
+#### Event Driven
+
+1. Sensor triggers interrupt
+2. Request data from sensor
+3. Receive response
+4. Ingest into estimator
+
+For an estimator instance that is based on a Kalman filter, ingesting a measurement involves performing a measurement update which is the most expensive part of the filter. For that reason, maintaining a queue of measurements may be desireable, such that all the relevant measurements are aggergated before being processed by the filter.
