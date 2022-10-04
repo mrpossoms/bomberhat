@@ -1,5 +1,10 @@
 #pragma once
 #include <ostream>
+#include "context.hpp"
+#include "error.hpp"
+#include "interface/bus.hpp"
+#include "interface/controller.hpp"
+#include "interface/sensor.hpp"
 
 namespace bh
 {
@@ -22,7 +27,10 @@ struct Core
 			s.poll();
 		}
 		
+		float dt = get_time(); // TODO
 
+		auto& predicted_state = estimator.predict(dt, controller.last_control());
+		controller.step(predicted_state);
 	}
 
 private:

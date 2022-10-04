@@ -17,6 +17,7 @@ struct Controller
 
 	virtual vec<U_SIZE>& step(vec<X_SIZE>& x, const S dt) = 0;
 
+	virtual vec<U_SIZE>& last_control() const = 0;
 };	
 
 } // namespace interface
