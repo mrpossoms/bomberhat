@@ -12,8 +12,6 @@ namespace interface
 template <size_t X_SIZE, size_t U_SIZE, typename S=float>
 struct Estimator
 {
-	virtual Estimator(bh::Context& ctx) = 0;
-
 	template <size_t Z_S, size_t N>
 	virtual void observe(const vec<N>& z) = 0;
 
