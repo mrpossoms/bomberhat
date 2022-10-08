@@ -3,13 +3,14 @@
 #include "context.hpp"
 #include "error.hpp"
 #include "interface/bus.hpp"
+#include "interface/estimator.hpp"
 #include "interface/controller.hpp"
 #include "interface/sensor.hpp"
 
 namespace bh
 {
 
-template<typename EST, typename CON, typename... SENSORS>
+template<Estimator EST, typename CON, typename... SENSORS>
 struct Core
 {
 	Core()
