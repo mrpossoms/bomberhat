@@ -9,6 +9,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_library(bh.core INTERFACE)
 
+message(INFO ${CMAKE_CURRENT_SOURCE_DIR}/../../gitman_sources/xmath.h/inc)
+target_include_directories(bh.core INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/../../gitman_sources/xmath.h/inc)
+
 target_include_directories(bh.core INTERFACE
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/inc>
 )

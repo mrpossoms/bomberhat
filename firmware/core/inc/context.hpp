@@ -1,10 +1,11 @@
 #pragma once
+#include <interface/bus.hpp>
 
 
 namespace bh
 {
 
-struct context
+struct Context
 {
 	std::vector<bh::interface::Bus>& busses;
 };

@@ -10,13 +10,17 @@
 namespace bh
 {
 
-template<Estimator EST, typename CON, typename... SENSORS>
+using namespace bh::interface;
+
+template<size_t X_SIZE, size_t Z_SIZE, size_t U_SIZE, IEstimator<X_SIZE, Z_SIZE, U_SIZE> EST, IController<X_SIZE, U_SIZE> CON, typename... SENSORS>
 struct Core
 {
 	Core()
 	{
-		add_sensors<SENSORS>();
+		add_sensors<SENSORS...>();
 	}
+
+	// static std::shared_ptr<Core<X_SIZE, Z_SIZE, U_SIZE
 
 	void tick(bh::Context& ctx)
 	{
@@ -28,24 +32,24 @@ struct Core
 			s.poll();
 		}
 		
-		float dt = get_time(); // TODO
+		float dt = 0.01;//get_time(); // TODO
 
 		auto& predicted_state = estimator.predict(dt, controller.last_control());
 		controller.step(predicted_state);
 	}
 
 private:
-	template<size_t idx>
+	template<>
 	void add_sensors() {}
 
-	template<typename SEN, typename... SENS>
+	template<size_t idx, typename SEN, typename... SENS>
 	void add_sensors()
 	{
-		sensors.push_back(std::make_shared<SEN>({estimator}));
-		add_sensors<SENS>();
+		sensors.push_back(SEN::make(estimator));
+		add_sensors<SENS...>();
 	}
 
-	std::vector<std::shared_ptr<bh::Sensor>> sensors;
+	std::vector<std::shared_ptr<Sensor<Z_SIZE>>> sensors;
 	EST estimator;
 	CON controller;
 };
