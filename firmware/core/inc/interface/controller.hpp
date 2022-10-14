@@ -18,11 +18,13 @@ namespace interface
 // };	
 
 template<typename CON, size_t X_SIZE, size_t U_SIZE, typename S=float>
-concept IController = requires(CON c, vec<X_SIZE, S>& x, bh::Context& ctx, const S dt)
+concept IController = requires(CON c, const vec<X_SIZE, S>& x, const mat<X_SIZE, 1, S>& xm, bh::Context& ctx, const S dt)
 {
-	c.step(x, dt, ctx) -> std::template same_as<vec<U_SIZE, S>&>;
+	c.target(x);
 
-	c.last_control() -> std::template same_as<vec<U_SIZE, S>&>;
+	{ c.step(xm, dt, ctx) } -> std::template same_as<const vec<U_SIZE, S>&>;
+
+	{ c.last_control() } -> std::template same_as<const vec<U_SIZE, S>&>;
 };
 
 } // namespace interface

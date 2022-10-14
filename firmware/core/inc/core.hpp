@@ -17,36 +17,34 @@ struct Core
 {
 	Core()
 	{
-		add_sensors<SENSORS...>();
+		add_sensors<0, SENSORS...>();
 	}
 
-	// static std::shared_ptr<Core<X_SIZE, Z_SIZE, U_SIZE
-
-	void tick(bh::Context& ctx)
+	void step(bh::Context& ctx)
 	{
 		// for each polling device, poll. for any event driven sensors capture queued observations. agergate into measurement vector
 		for (auto& s : sensors)
 		{
-			if (!s.is_polling()) { continue; }
+			if (!s->is_polling()) { continue; }
 
-			s.poll();
+			s->poll();
 		}
 		
 		float dt = 0.01;//get_time(); // TODO
 
-		auto& predicted_state = estimator.predict(dt, controller.last_control());
-		controller.step(predicted_state);
+		auto& predicted_state = estimator.predict(controller.last_control());
+		controller.step(predicted_state, dt, ctx);
 	}
 
 private:
-	template<>
+	template<size_t idx>
 	void add_sensors() {}
 
 	template<size_t idx, typename SEN, typename... SENS>
 	void add_sensors()
 	{
 		sensors.push_back(SEN::make(estimator));
-		add_sensors<SENS...>();
+		add_sensors<idx + 1, SENS...>();
 	}
 
 	std::vector<std::shared_ptr<Sensor<Z_SIZE>>> sensors;

@@ -35,7 +35,7 @@ concept IEstimator = requires(T est, const vec<U_SIZE, S>& u, const vec<Z_SIZE, 
 {
 	est.observe(z, z_mask);
 
-	{ est.predict(u) } -> std::same_as<mat<X_SIZE, 1, S>>;
+	{ est.predict(u) } -> std::same_as<mat<X_SIZE, 1, S>&>;
 
 	{ est.timestamp() } -> std::same_as<uint32_t>;
 };

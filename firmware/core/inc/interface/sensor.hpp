@@ -20,7 +20,7 @@ struct Sensor
 };
 
 template<typename SEN, size_t Z_SIZE>
-concept SensorConcept = requires(SEN s)
+concept ISensor = requires(SEN s)
 {
 	SEN::make() -> std::template same_as<std::shared_ptr<SEN>>;
 
