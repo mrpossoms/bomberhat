@@ -71,9 +71,9 @@ struct Gyro : public bh::interface::Sensor<Z>
 		});
 	}
 
-	static std::shared_ptr<Gyro> make(bh::estimators::KalmanFilter<X,Z,U>& est)
+	static Gyro* make(bh::estimators::KalmanFilter<X,Z,U>& est)
 	{
-		return std::make_shared<Gyro>(est);
+		return new Gyro(est);
 	}
 
 	void poll() override

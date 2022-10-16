@@ -1,8 +1,7 @@
 name: bomberhat 
 channels:
   - defaults
+  - conda-forge
 dependencies:
-  - gcc_linux-64=11.2.0
-  - clangxx=14.0.6 
-  - libcxx=14.0.6
+  - cxx-compiler 
 

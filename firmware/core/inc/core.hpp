@@ -47,7 +47,7 @@ private:
 		add_sensors<idx + 1, SENS...>();
 	}
 
-	std::vector<std::shared_ptr<Sensor<Z_SIZE>>> sensors;
+	std::vector<Sensor<Z_SIZE>*> sensors;
 	EST estimator;
 	CON controller;
 };

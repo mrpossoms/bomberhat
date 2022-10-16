@@ -22,9 +22,9 @@ concept IController = requires(CON c, const vec<X_SIZE, S>& x, const mat<X_SIZE,
 {
 	c.target(x);
 
-	{ c.step(xm, dt, ctx) } -> std::template same_as<const vec<U_SIZE, S>&>;
+	{ c.step(xm, dt, ctx) } -> std::same_as<const vec<U_SIZE, S>&>;
 
-	{ c.last_control() } -> std::template same_as<const vec<U_SIZE, S>&>;
+	{ c.last_control() } -> std::same_as<const vec<U_SIZE, S>&>;
 };
 
 } // namespace interface
