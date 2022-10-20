@@ -16,4 +16,6 @@ target_include_directories(bh.core INTERFACE
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/inc>
 )
 
+add_custom_target(format COMMAND find ${CMAKE_CURRENT_SOURCE_DIR} -iname *.hpp | xargs clang-format-14 -i)
+
 add_subdirectory(tests)

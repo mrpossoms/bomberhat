@@ -8,7 +8,7 @@ using namespace xmath;
 namespace bh
 {
 
-namespace interface 
+namespace interface
 {
 
 // template <size_t X_SIZE, size_t U_SIZE, typename S=float>
@@ -22,22 +22,34 @@ namespace interface
 // 	virtual vec<X_SIZE>& state() const = 0;
 
 // 	virtual uint32_t timestamp() const = 0;
-// };	
-template<typename T, size_t Z_SIZE, typename S=float>
-concept IObserver = requires(T obs, const vec<Z_SIZE, S>& z, const vec<Z_SIZE, S>& z_mask)
+// };
+template <typename T, size_t Z_SIZE, typename S = float>
+concept IObserver = requires(T                     obs,
+                             const vec<Z_SIZE, S>& z,
+                             const vec<Z_SIZE, S>& z_mask)
 {
 	obs.observe(z, z_mask);
 };
 
-
-template<typename T, size_t X_SIZE, size_t Z_SIZE, size_t U_SIZE, typename S=float>
-concept IEstimator = requires(T est, const vec<U_SIZE, S>& u, const vec<Z_SIZE, S>& z, const vec<Z_SIZE, S>& z_mask)
+template <typename T,
+          size_t X_SIZE,
+          size_t Z_SIZE,
+          size_t U_SIZE,
+          typename S = float>
+concept IEstimator = requires(T                     est,
+                              const vec<U_SIZE, S>& u,
+                              const vec<Z_SIZE, S>& z,
+                              const vec<Z_SIZE, S>& z_mask)
 {
 	est.observe(z, z_mask);
 
-	{ est.predict(u) } -> std::same_as<mat<X_SIZE, 1, S>&>;
+	{
+		est.predict(u)
+		} -> std::same_as<mat<X_SIZE, 1, S>&>;
 
-	{ est.timestamp() } -> std::same_as<uint32_t>;
+	{
+		est.timestamp()
+		} -> std::same_as<uint32_t>;
 };
 
 } // namespace interface

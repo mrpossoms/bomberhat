@@ -19,14 +19,20 @@ struct Sensor
 	virtual bool is_polling() const = 0;
 };
 
-template<typename SEN, size_t Z_SIZE>
+template <typename SEN, size_t Z_SIZE>
 concept ISensor = requires(SEN s)
 {
-	{ SEN::make() } -> std::same_as<SEN*>;
+	{
+		SEN::make()
+		} -> std::same_as<SEN*>;
 
-	{ s.poll() } -> std::same_as<bh::Error>;
+	{
+		s.poll()
+		} -> std::same_as<bh::Error>;
 
-	{ s.event_driven() } -> std::same_as<bool>;
+	{
+		s.event_driven()
+		} -> std::same_as<bool>;
 };
 
 } // namespace interface

@@ -4,4 +4,5 @@ channels:
   - conda-forge
 dependencies:
   - cxx-compiler 
+  - clang-format-14
 
