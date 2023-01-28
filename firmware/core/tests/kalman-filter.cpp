@@ -12,7 +12,7 @@
 using namespace std::chrono_literals;
 
 constexpr size_t X = 6;
-constexpr size_t Z = 3;
+constexpr size_t Z = 6;
 constexpr size_t U = 3;
 
 vec<3> truth_ypr = {};
@@ -92,10 +92,15 @@ struct TestFilter : public bh::estimators::KalmanFilter<X,Z,U>
 {
 	const mat<Z, X, float>& state_to_measurement() override
 	{
+
+		// X2Z * X -> Z
 		X2Z = {
-			{ 0, 0, 0, 1, 0, 0 },
-			{ 0, 0, 0, 0, 1, 0 },
-			{ 0, 0, 0, 0, 0, 1 },
+			{ 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0 },
 		};
 		return X2Z;
 	}
