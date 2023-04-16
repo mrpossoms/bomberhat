@@ -78,7 +78,8 @@ struct Gyro : public bh::interface::Sensor<Z>
 
 	void poll() override
 	{
-		estimator.observe(truth_ypr_dot + rand_vec({0.1f,0.1f,0.1f}), {1,1,1});
+		auto gyro_noisy = truth_ypr_dot + rand_vec({0.1f,0.1f,0.1f});
+		estimator.observe(, {0,0,0,1,1,1});
 	}
 
 	bool is_polling() const override { return false; }
@@ -92,15 +93,17 @@ struct TestFilter : public bh::estimators::KalmanFilter<X,Z,U>
 {
 	const mat<Z, X, float>& state_to_measurement() override
 	{
-
-		// X2Z * X -> Z
+		// state: rpy, rpy dot
+		// measurement: acc, rpy dot
+		// rpy -> acc
+		// 
 		X2Z = {
 			{ 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0 },
-			{ 0, 0, 0, 0, 0, 0 },
-			{ 0, 0, 0, 0, 0, 0 },
-			{ 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 1, 0, 0 },
+			{ 0, 0, 0, 0, 1, 0 },
+			{ 0, 0, 0, 0, 0, 1 },
 		};
 		return X2Z;
 	}
@@ -108,11 +111,7 @@ struct TestFilter : public bh::estimators::KalmanFilter<X,Z,U>
 	const mat<Z, Z, float>& measurement_noise_covariance() override
 	{
 		float s = 0.1f;
-		Q = {
-			{ s, 0, 0 },
-			{ 0, s, 0 },
-			{ 0, 0, s },
-		};
+		Q = mat<Z, Z>::diagonal(s);
 		return Q;
 	}
 
