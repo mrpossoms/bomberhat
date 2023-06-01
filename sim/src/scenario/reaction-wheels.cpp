@@ -7,7 +7,7 @@
 static const dVector3 xunit = {1, 0, 0}, yunit = {0, 1, 0}, zunit = {0, 0, 1};
 
 
-void reaction_wheels::setup() override
+void reaction_wheels::setup()
 {
     dMass mass;
 
@@ -45,7 +45,7 @@ void reaction_wheels::setup() override
     }
 }
 
-void reaction_wheels::command(int cmd) override
+void reaction_wheels::command(int cmd)
 {
     switch (cmd) {
     case 'j': case 'J':
@@ -57,17 +57,17 @@ void reaction_wheels::command(int cmd) override
     }
 }
 
-std::vector<dReal> reaction_wheels::observables() override
+std::vector<dReal> reaction_wheels::observables()
 {
     return std::vector<dReal>{};
 }
 
-void reaction_wheels::apply_action(const std::vector<dReal>& a) override
+void reaction_wheels::apply_action(const std::vector<dReal>& a)
 {
     // TODO:
 }
 
-void reaction_wheels::user_step(dReal step_size=0.005) override
+void reaction_wheels::user_step(dReal step_size)
 {
     // TODO:
 }

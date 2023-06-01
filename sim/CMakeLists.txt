@@ -8,6 +8,8 @@ endif()
 
 set(SOURCES ${SOURCES} ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp)
 set(SOURCES ${SOURCES} ${CMAKE_CURRENT_SOURCE_DIR}/src/simulation.cpp)
+set(SOURCES ${SOURCES} ${CMAKE_CURRENT_SOURCE_DIR}/src/scenario/quad-rotor.cpp)
+set(SOURCES ${SOURCES} ${CMAKE_CURRENT_SOURCE_DIR}/src/scenario/reaction-wheels.cpp)
 
 add_executable(sim ${SOURCES})
 

@@ -1,4 +1,5 @@
 #pragma once
+#include "simulation.hpp"
 
 struct reaction_wheels final : public simulation
 {
